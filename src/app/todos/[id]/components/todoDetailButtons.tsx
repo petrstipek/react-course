@@ -14,8 +14,14 @@ export const TodoDetailButtons = ({ todo }: Props) => {
     };
     return (
         <>
-            <button onClick={handleToggleTodo} className="complete-button">
+            <button onClick={handleToggleTodo} className="bg-green-600 hover:bg-green-900 text-white px-4 py-2 rounded-md">
                 {todo.completed ? "Undo" : "Complete"}
+            </button>
+            <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">
+                Delete
+            </button>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                Edit
             </button>
         </>
     )

@@ -8,7 +8,7 @@ type Props = {
 export const TodosSection = ({ todos }: Props) => {
   return (
     <main>
-      <div className="todo-container">
+      <div className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4">
         <ul>
           {todos?.map((todo) => {
             return <TodoItem key={todo.id} todo={todo} />;

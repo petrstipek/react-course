@@ -1,7 +1,6 @@
 import { Header } from "@/components/header/header";
 import prisma from "@/lib/prisma";
-import { TodoDetailButtons } from "@/components/detail/todoDetailButtons";
-import { HomeButton } from "./components/homeButton";
+import { TodoDetailButtons } from "@/app/todos/[id]/components/todoDetailButtons";
 import { Metadata } from "next";
 
 async function getTodo(id: number) {
@@ -25,28 +24,34 @@ const TodoDetailPage = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Header title="Todo Detail" subtitle="Here is detail of todo" />
-      <div className="todo-detail">
-        <div className="todo-detail-card">
-          <h2>{todo.name}</h2>
-          <div className="todo-detail-status">
-            Status:{" "}
-            <span className={todo.completed ? "completed" : "active"}>
-              {todo.completed ? "Completed" : "Active"}
-            </span>
-          </div>
-          <div className="todo-detail-status">
-            Priority: <span className={"completed"}>{todo.priority}</span>
-          </div>
 
-          {todo.description && (
-            <div className="todo-detail-description">
-              <p>{todo.description}</p>
-            </div>
-          )}
+      <div className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4">
+        <h2 className="text-2xl font-bold">{todo.name}</h2>
+
+        <div className="text-sm">
+          <span className="font-semibold">Status:</span>{" "}
+          <span className={todo.completed ? "text-green-400" : "text-yellow-400"}>
+            {todo.completed ? "Completed" : "Active"}
+          </span>
         </div>
-        <div>
-          <HomeButton />
-          <TodoDetailButtons todo={todo} />
+
+        <div className="text-sm">
+          <span className="font-semibold">Priority:</span>{" "}
+          <span className="text-blue-300">{todo.priority}</span>
+        </div>
+
+        {todo.description && (
+          <div className="text-sm">
+            <span className="font-semibold">Description:</span>
+            <p className="text-sm text-gray-300">{todo.description}</p>
+          </div>
+        )}
+
+        <div className="border-t border-gray-600 pt-4">
+          <h3 className="text-lg font-semibold mb-2">Actions</h3>
+          <div className="flex flex-wrap gap-4">
+            <TodoDetailButtons todo={todo} />
+          </div>
         </div>
       </div>
     </>
