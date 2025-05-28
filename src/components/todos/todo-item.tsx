@@ -8,12 +8,10 @@ type TodoItemProps = {
 };
 export const TodoItem = ({ todo }: TodoItemProps) => {
   const handleDeleteTodo = () => {
-    // deleteTodo({ id: todo.id });
     deleteTodo(todo.id);
   };
 
   const handleToggleTodo = () => {
-    // toggleTodo({ id: todo.id, completed: !todo.completed });
     toggleTodo(todo.id);
   };
 

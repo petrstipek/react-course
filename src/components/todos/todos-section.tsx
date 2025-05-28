@@ -1,6 +1,6 @@
+import { Todo } from "@prisma/client";
 import { TodoForm } from "./todo-form";
 import { TodoItem } from "./todo-item";
-import { Todo } from "@/types";
 
 type Props = {
   todos: Todo[];
