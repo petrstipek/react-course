@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Header } from "./header";
+import { Header } from "./header/header";
 
 export const TodoDetailError = () => {
   return (

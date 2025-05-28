@@ -1,5 +1,5 @@
 "use client";
-import { Header } from "@/components/header";
+import { Header } from "@/components/header/header";
 import Link from "next/link";
 
 export default function Error() {

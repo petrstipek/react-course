@@ -1,4 +1,4 @@
-import { Header } from "@/components/header";
+import { Header } from "@/components/header/header";
 import { TodosSection } from "@/components/todos/todos-section";
 import prisma from "@/lib/prisma";
 
