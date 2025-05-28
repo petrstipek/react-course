@@ -1,7 +1,7 @@
 import { Header } from "@/components/header";
 import { TodosSection } from "@/components/todos/todos-section";
 
-const API_URL = "https://eli-workshop.vercel.app/api/users/xsmrj00/todos";
+const API_URL = "https://eli-workshop.vercel.app/api/users/stip05/todos";
 
 const fetchTodos = async () => {
   const response = await fetch(API_URL);
