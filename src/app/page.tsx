@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <>
-      <Header title="My Todo List" subtitle="Add your tasks" />
+      <Header title="Todo List" subtitle="Manage your tasks efficiently" />
       <TodosSection todos={todos} />
       <footer>
         <p>Click on a task to mark it as completed</p>

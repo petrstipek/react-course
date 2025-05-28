@@ -18,5 +18,5 @@ model Todo {
   name        String
   completed   Boolean @default(false)
   description String?
-  priority    Int?    @default(0)
+  priority    String? @default("Low")
 }
