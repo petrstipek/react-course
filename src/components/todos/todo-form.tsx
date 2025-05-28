@@ -2,10 +2,33 @@ import { createTodo } from "@/actions/todo-actions";
 
 export const TodoForm = () => {
   return (
-    <form action={createTodo}>
-      <div className="input-group">
-        <input name="todo-text" placeholder="What needs to be done?" />
-        <select name="todo-priority" defaultValue="">
+    <form
+      action={createTodo}
+      className="w-full max-w-md mx-auto bg-gray-700 shadow-md rounded-xl p-6 space-y-4"
+    >
+      <h2 className="text-center text-2xl font-semibold mb-4">
+        Create new Todo!
+      </h2>
+      <div className="space-y-2">
+        <input
+          name="todo-text"
+          placeholder="What needs to be done?"
+          required
+          className="bg-gray-900 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          name="todo-description"
+          placeholder="Description (optional)"
+          className="bg-gray-900 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <select
+          name="todo-priority"
+          defaultValue=""
+          required
+          className="appearance-none bg-gray-900 text-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
           <option value="" disabled>
             Select priority
           </option>
@@ -13,9 +36,14 @@ export const TodoForm = () => {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
-        <input name="todo-description" placeholder="Description (optional)" />
-        <button type="submit">Add</button>
       </div>
+
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Add Todo
+      </button>
     </form>
   );
 };
