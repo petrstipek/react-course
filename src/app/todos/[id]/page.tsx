@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { TodoDetailButtons } from "@/components/detail/todoDetailButtons";
+import { HomeButton } from "./components/homeButton";
 
 async function getTodo(id: number) {
   const todo = await prisma.todo.findUnique({ where: { id }, });
@@ -43,6 +44,7 @@ const TodoDetailPage = async ({ params }: { params: { id: string } }) => {
         </div>
 
         <div>
+          <HomeButton />
           <TodoDetailButtons todo={todo} />
         </div>
       </div>

@@ -14,9 +14,6 @@ export const TodoDetailButtons = ({ todo }: Props) => {
     };
     return (
         <>
-            <Link href="/">
-                <button className="back-button">Back to Home</button>
-            </Link>
             <button onClick={handleToggleTodo} className="complete-button">
                 {todo.completed ? "Undo" : "Complete"}
             </button>
