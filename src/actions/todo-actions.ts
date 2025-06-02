@@ -8,10 +8,13 @@ export async function createTodo(formData: FormData) {
   const todoName = formData.get("todo-text") as string;
   const todoPriority = formData.get("todo-priority") as string
   const description = formData.get("todo-description") as string;
+  const dueDate = formData.get("todo-due") as string;
+
   const newTodo = {
     name: todoName,
     description: description || "",
     priority: todoPriority,
+    DueDate: dueDate ? new Date(dueDate) : null,
   };
   await prisma.todo.create({ data: newTodo });
   revalidatePath("/");

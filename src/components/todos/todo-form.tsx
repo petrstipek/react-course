@@ -53,7 +53,6 @@ export const TodoForm = () => {
         <select
           name="todo-priority"
           defaultValue=""
-          required
           className="w-full px-4 py-2 rounded-lg border-2 border-gray-600 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
         >
           <option value="" disabled>
@@ -63,6 +62,11 @@ export const TodoForm = () => {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
+        <input
+          type="date"
+          name="todo-due"
+          className="w-full px-4 py-2 rounded-lg border-2 border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
+        />
       </div>
 
       <button

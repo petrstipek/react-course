@@ -29,6 +29,19 @@ const TodoDetailPage = async ({ params }: { params: { id: string } }) => {
         <h2 className="text-2xl font-bold">{todo.name}</h2>
 
         <div className="text-sm">
+          <span className="font-semibold">Due:</span>{" "}
+          <span className="text-blue-300">
+            {todo.DueDate
+              ? new Date(todo.DueDate).toLocaleString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })
+              : "Unknown"}
+          </span>
+        </div>
+
+        <div className="text-sm">
           <span className="font-semibold">Created At:</span>{" "}
           <span className="text-blue-300">
             {todo.createdAt
