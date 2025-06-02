@@ -1,19 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import { createTodo } from "@/actions/todo-actions";
+import { useRouter } from "next/navigation";
+import { startTransition, useState } from "react";
 
 export const TodoForm = () => {
+  const router = useRouter();
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     await createTodo(formData);
+
+    startTransition(() => {
+      router.refresh();
+    });
+
     setSuccess(true);
-    e.currentTarget.reset(); // optional: reset the form
-    setTimeout(() => setSuccess(false), 3000);
+    form.reset();
+
+    setTimeout(() => {
+      setSuccess(false);
+    }, 3000);
   };
 
   return (
