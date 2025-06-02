@@ -13,7 +13,24 @@ export const TodoForm = () => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    await createTodo(formData);
+
+    const payload = {
+      name: formData.get("todo-text"),
+      description: formData.get("todo-description"),
+      priority: formData.get("todo-priority"),
+      dueDate: formData.get("todo-due"),
+    };
+
+    const res = await fetch("/api/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to create todo");
+      return;
+    }
 
     startTransition(() => {
       router.refresh();
