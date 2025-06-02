@@ -15,7 +15,6 @@ export default async function Home() {
       <Header title="Todo List" subtitle="Manage your tasks efficiently" />
       <TodosSection todos={todos} />
       <footer>
-        <p>Click on a task to mark it as completed</p>
       </footer>
     </>
   );
