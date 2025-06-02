@@ -11,7 +11,7 @@ export async function createTodo(formData: FormData) {
   const newTodo = {
     name: todoName,
     description: description || "",
-    priority: todoPriority, // defaulty low, handled on database level
+    priority: todoPriority,
   };
   await prisma.todo.create({ data: newTodo });
   revalidatePath("/");

@@ -29,6 +29,21 @@ const TodoDetailPage = async ({ params }: { params: { id: string } }) => {
         <h2 className="text-2xl font-bold">{todo.name}</h2>
 
         <div className="text-sm">
+          <span className="font-semibold">Created At:</span>{" "}
+          <span className="text-blue-300">
+            {todo.createdAt
+              ? new Date(todo.createdAt).toLocaleString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+              : "Unknown"}
+          </span>
+        </div>
+
+        <div className="text-sm">
           <span className="font-semibold">Status:</span>{" "}
           <span className={todo.completed ? "text-green-400" : "text-yellow-400"}>
             {todo.completed ? "Completed" : "Active"}
@@ -37,7 +52,13 @@ const TodoDetailPage = async ({ params }: { params: { id: string } }) => {
 
         <div className="text-sm">
           <span className="font-semibold">Priority:</span>{" "}
-          <span className="text-blue-300">{todo.priority}</span>
+          <span className={
+            todo.priority === "low"
+              ? "text-green-400"
+              : todo.priority === "medium"
+                ? "text-yellow-400"
+                : "text-red-400"
+          }>{todo.priority}</span>
         </div>
 
         {todo.description && (

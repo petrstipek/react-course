@@ -1,14 +1,30 @@
+"use client";
+
+import { useState } from "react";
 import { createTodo } from "@/actions/todo-actions";
 
 export const TodoForm = () => {
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    await createTodo(formData);
+    setSuccess(true);
+    e.currentTarget.reset(); // optional: reset the form
+    setTimeout(() => setSuccess(false), 3000);
+  };
+
   return (
     <form
-      action={createTodo}
-      className="w-full max-w-md mx-auto bg-gray-700 shadow-md rounded-xl p-6 space-y-4"
+      onSubmit={handleSubmit}
+      className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4"
     >
       <h2 className="text-center text-2xl font-semibold mb-4">
         Create new Todo!
       </h2>
+
       <div className="space-y-2">
         <input
           name="todo-text"
@@ -44,6 +60,12 @@ export const TodoForm = () => {
       >
         Add Todo
       </button>
+
+      {success && (
+        <div className="text-green-400 text-sm animate-bounce mt-2 text-center">
+          ✅ Todo added successfully!
+        </div>
+      )}
     </form>
   );
 };
