@@ -51,6 +51,9 @@ export const TodosSection = ({ todos }: Props) => {
     });
   }, [todos, query, priority, dueFilter, completedFilter]);
 
+  const pinnedTodos = filteredTodos.filter((todo) => todo.pinned);
+  const unpinnedTodos = filteredTodos.filter((todo) => !todo.pinned);
+
   return (
     <main>
       <div className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4">
@@ -103,10 +106,24 @@ export const TodosSection = ({ todos }: Props) => {
           </button>
         </div>
       </div>
+      {/* Pinned Section */}
+      {pinnedTodos.length > 0 && (
+        <div className="mx-auto mt-6 p-6 bg-yellow-800 rounded-xl shadow-md space-y-4">
+          <h3 className="text-white text-lg font-semibold">📌 Pinned</h3>
+          <ul>
+            {pinnedTodos.map((todo) => (
+              <TodoItem key={todo.id} todo={todo} />
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Unpinned Section */}
       <div className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4">
+        <h3 className="text-white text-lg font-semibold">All</h3>
         <ul>
-          {filteredTodos.length > 0 ? (
-            filteredTodos.map((todo) => (
+          {unpinnedTodos.length > 0 ? (
+            unpinnedTodos.map((todo) => (
               <TodoItem key={todo.id} todo={todo} />
             ))
           ) : (

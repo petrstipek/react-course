@@ -21,4 +21,5 @@ model Todo {
   priority    String?   @default("Low")
   createdAt   DateTime  @default(now())
   DueDate     DateTime?
+  pinned      Boolean   @default(false)
 }
