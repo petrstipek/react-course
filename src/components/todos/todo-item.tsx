@@ -11,8 +11,9 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
     deleteTodo(todo.id);
   };
 
-  const handleToggleTodo = () => {
-    toggleTodo(todo.id);
+  const handleToggleTodo = async () => {
+    await toggleTodo(todo.id);
+    window.dispatchEvent(new Event("refresh-today-stats"));
   };
 
   return (
