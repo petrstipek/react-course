@@ -9,11 +9,14 @@ type TodayStats = {
 export default function TodayOverviewCard() {
     const [stats, setStats] = useState<TodayStats | null>(null);
 
-    const loadStats = () => {
-        fetch("/api/todo-stats/today")
-            .then((res) => res.json())
-            .then((data) => setStats(data))
-            .catch((err) => console.error("Error loading today stats", err));
+    const loadStats = async () => {
+        try {
+            const res = await fetch("/api/todo-stats/today");
+            const data = await res.json();
+            setStats(data);
+        } catch (err) {
+            console.error("Error loading today stats", err);
+        }
     };
 
     useEffect(() => {
