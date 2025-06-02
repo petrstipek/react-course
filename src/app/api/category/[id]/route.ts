@@ -16,4 +16,19 @@ export async function DELETE(
         console.error(error);
         return NextResponse.json({ success: false, error: "Delete failed" }, { status: 500 });
     }
-}
+};
+
+export async function GET(
+    _req: Request,
+    { params }: { params: { id: string } }
+) {
+    const category = await prisma.category.findUnique({
+        where: { id: Number(params.id) },
+    });
+
+    if (!category) {
+        return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ category });
+};

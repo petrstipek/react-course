@@ -4,7 +4,12 @@ import { TodoDetailButtons } from "@/app/todos/[id]/components/todoDetailButtons
 import { Metadata } from "next";
 
 async function getTodo(id: number) {
-  const todo = await prisma.todo.findUnique({ where: { id }, });
+  const todo = await prisma.todo.findUnique({
+    where: { id },
+    include: {
+      category: true,
+    },
+  });
   if (!todo) {
     throw new Error("Todo not found");
   }
@@ -27,6 +32,20 @@ const TodoDetailPage = async ({ params }: { params: { id: string } }) => {
 
       <div className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4">
         <h2 className="text-2xl font-bold">{todo.name}</h2>
+
+        {todo.category && (
+          <div className="text-sm">
+            <span
+              className="items-center justify-center px-3 py-1.5 rounded-md text-sm font-medium"
+              style={{
+                backgroundColor: todo.category.color,
+                textAlign: "center",
+              }}
+            >
+              🏷 {todo.category.name}
+            </span>
+          </div>
+        )}
 
         <div className="text-sm">
           <span className="font-semibold">Due:</span>{" "}

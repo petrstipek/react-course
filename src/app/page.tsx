@@ -4,7 +4,11 @@ import { TodosSection } from "@/components/todos/todos-section";
 import prisma from "@/lib/prisma";
 
 const fetchTodos = async () => {
-  const response = await prisma.todo.findMany();
+  const response = await prisma.todo.findMany({
+    include: {
+      category: true,
+    },
+  });
   return response;
 };
 

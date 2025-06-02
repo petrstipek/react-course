@@ -1,11 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Todo } from "@prisma/client";
+import { Category, Todo } from "@prisma/client";
 import { TodoItem } from "./todo-item";
 
+type TodoWithCategory = Todo & {
+  category: Category | null;
+};
+
 type Props = {
-  todos: Todo[];
+  todos: TodoWithCategory[];
 };
 
 export const TodosSection = ({ todos }: Props) => {

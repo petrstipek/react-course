@@ -1,16 +1,35 @@
 "use client";
 import Link from "next/link";
 import { toggleTodo, deleteTodo } from "@/actions/todo-actions";
-import { Todo } from "@prisma/client";
-import { useTransition } from "react";
+import { Category, Todo } from "@prisma/client";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
+type TodoWithCategory = Todo & {
+  category: Category | null;
+};
+
 type TodoItemProps = {
-  todo: Todo;
+  todo: TodoWithCategory;
 };
 export const TodoItem = ({ todo }: TodoItemProps) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition()
+  const [category, setCategory] = useState<Category | null>(null);
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      if (!todo.categoryId) return;
+      const res = await fetch(`/api/category/${todo.categoryId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setCategory(data.category);
+      }
+    };
+    fetchCategory();
+  }, [todo.categoryId]);
+
+
   const handleDeleteTodo = () => {
     deleteTodo(todo.id);
   };
@@ -33,6 +52,17 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
     <li className={todo.completed ? "completed" : ""}>
       <span>{todo.name}</span>
       <div className="flex gap-2 mt-2 flex-wrap">
+        {todo.category && (
+          <span
+            className="inline-flex items-center justify-center px-3 py-1.5 rounded-md text-sm font-medium transition-colors shadow-sm"
+            style={{
+              backgroundColor: todo.category.color,
+              textAlign: "center",
+            }}
+          >
+            🏷 {todo.category.name}
+          </span>
+        )}
         <button
           onClick={() => togglePinned(todo.id)}
           className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors
@@ -67,6 +97,6 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
           Go to Detail
         </Link>
       </div>
-    </li>
+    </li >
   );
 };
