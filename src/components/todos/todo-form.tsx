@@ -1,12 +1,24 @@
 "use client";
 
-import { createTodo } from "@/actions/todo-actions";
+import { Category } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { startTransition, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 
 export const TodoForm = () => {
   const router = useRouter();
   const [success, setSuccess] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await fetch("/api/category");
+      if (res.ok) {
+        const data = await res.json();
+        setCategories(data.categories);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,6 +31,7 @@ export const TodoForm = () => {
       description: formData.get("todo-description"),
       priority: formData.get("todo-priority"),
       dueDate: formData.get("todo-due"),
+      categoryId: Number(formData.get("todo-category")),
     };
 
     const res = await fetch("/api/todos", {
@@ -78,6 +91,21 @@ export const TodoForm = () => {
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
+        </select>
+        <select
+          name="todo-category"
+          defaultValue=""
+          required
+          className="w-full px-4 py-2 rounded-lg border-2 border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
+        >
+          <option value="" disabled>
+            Select category
+          </option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
         </select>
         <input
           type="date"

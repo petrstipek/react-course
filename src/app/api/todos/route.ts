@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
 
-        const { name, description, priority, dueDate } = body;
+        const { name, description, priority, dueDate, categoryId } = body;
 
         const newTodo = await prisma.todo.create({
             data: {
@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
                 description: description || '',
                 priority,
                 DueDate: dueDate ? new Date(dueDate) : null,
+                category: categoryId ? { connect: { id: categoryId } } : undefined,
             },
         });
 
