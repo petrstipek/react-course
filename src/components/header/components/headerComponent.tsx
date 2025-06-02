@@ -30,6 +30,14 @@ export const HeaderComponent = ({ title, subtitle }: HeaderProps) => {
                                 Create Todo
                             </a>
                         </li>
+                        <li>
+                            <a
+                                href="/category"
+                                className="hover:text-blue-400 transition-colors duration-200"
+                            >
+                                Create Category
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
