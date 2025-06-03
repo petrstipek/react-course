@@ -40,9 +40,21 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
   };
 
   const togglePinned = async (todoid: number) => {
-    await fetch(`/api/todos/${todoid}/pin`, {
-      method: "PATCH",
-    });
+    try {
+      const response = await fetch(`/api/todos/${todoid}/pin`, {
+        method: "PATCH",
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        alert(`Error when using pin: ${text}`);
+        return;
+      }
+    } catch (error) {
+      console.error("Error toggling pinned status:", error);
+      alert("Server communication error.");
+      return;
+    }
+
     startTransition(() => {
       router.refresh();
     });
