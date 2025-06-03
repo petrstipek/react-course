@@ -1,5 +1,5 @@
 "use server";
-
+// TODO - needs to be refactored to use backend api 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { toNamespacedPath } from "path";

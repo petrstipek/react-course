@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Category, Todo } from "@prisma/client";
 import { TodoItem } from "./todo-item";
+import { TodoListSection } from "./todos-section-list";
 
 type TodoWithCategory = Todo & {
   category: Category | null;
@@ -112,29 +113,18 @@ export const TodosSection = ({ todos }: Props) => {
       </div>
       {/* Pinned Section */}
       {pinnedTodos.length > 0 && (
-        <div className="mx-auto mt-6 p-6 bg-yellow-800 rounded-xl shadow-md space-y-4">
-          <h3 className="text-white text-lg font-semibold">📌 Pinned</h3>
-          <ul>
-            {pinnedTodos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} />
-            ))}
-          </ul>
-        </div>
+        <TodoListSection
+          title="📌 Pinned"
+          todos={pinnedTodos}
+          bgClassName="bg-yellow-800"
+        />
       )}
-
       {/* Unpinned Section */}
-      <div className="mx-auto mt-6 p-6 bg-gray-800 rounded-xl shadow-md space-y-4">
-        <h3 className="text-white text-lg font-semibold">All</h3>
-        <ul>
-          {unpinnedTodos.length > 0 ? (
-            unpinnedTodos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} />
-            ))
-          ) : (
-            <li className="text-gray-400 text-sm mt-2">No todos found.</li>
-          )}
-        </ul>
-      </div>
+      <TodoListSection
+        title="All"
+        todos={unpinnedTodos}
+        bgClassName="bg-gray-800"
+      />
     </main>
   );
 };
